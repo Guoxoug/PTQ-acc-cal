@@ -1,0 +1,56 @@
+{
+    "model":{
+        "model_type": "cifar_resnet20",
+        "model_params": {
+            "q":true, 
+            "num_classes":100
+        },
+        "weights_path": "models/saved_models/cifar_resnet20_cifar100"
+    },
+    "id_dataset": {
+        "name": "cifar100",
+        "datapath": "/idslF/data",
+        "download":false,
+        "batch_size":128,
+        "test_batch_size":256,
+        "num_workers":4,
+        "drop_last":false,
+        "val_size":0,
+        "num_classes":100
+        
+    },
+
+    "train_params": {
+        "num_epochs": 160,
+        "optimizer": "sgd",
+        "optimizer_params": {
+            "lr": 1e-1,
+            "nesterov": false,
+            "momentum": 0.9,
+            "weight_decay": 1e-4
+
+        },
+        "lr_scheduler": "multistep",
+        "lr_scheduler_params": {
+            "milestones": [80, 120],
+            "gamma": 0.1
+        }
+    },
+    "wandb_name": "testing_quantization_unc",
+    "seed":1,
+    "gpu_id":[0],
+    "test_params":{
+        "results_savedir": "/idslE/gx221/PTQ_acc_cal_results",
+        "results_save":true,
+        "logits_save": true,
+        "ptq_observer": "histogram",
+        "ptq_configs": [
+            {"weights": 8,"activations": 8},
+            {"weights": 7,"activations": 8},
+            {"weights": 6,"activations": 8},
+            {"weights": 5,"activations": 8},
+            {"weights": 4,"activations": 8}
+        ]
+    }
+    
+}

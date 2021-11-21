@@ -1,0 +1,54 @@
+{
+    "model":{
+        "model_type": "resnet50",
+        "model_params": {
+            "block": "bottleneck",
+            "q":true, 
+            "num_classes":1000
+        },
+    
+    "weights_path": "models/saved_models/resnet50_imagenet"
+    },
+    "id_dataset": {
+        "name": "imagenet",
+        "datapath": "/idslF/data/imagenet",
+        "download":false,
+        "batch_size":256,
+        "test_batch_size":256,
+        "num_workers":8,
+        "drop_last":false,
+        "val_size":0,
+        "num_classes":1000
+    },
+
+    "train_params": {
+        "num_epochs": 10,
+        "optimizer": "adam",
+        "optimizer_params": {
+            "lr": 1e-4
+        },
+        "lr_scheduler": "multistep",
+        "lr_scheduler_params": {
+            "milestones": [
+                5
+            ],
+            "gamma": 0.1
+        }
+    },
+    "seed": 0,
+    "data_parallel":false,
+    "gpu_id":[0],
+    "test_params":{
+        "results_savedir": "/work/guoxia01/experiment_results",
+        "results_save":true,
+        "ptq_observer": "histogram",
+        "ptq_configs": [
+            {"weights": 8,"activations": 8},
+            {"weights": 7,"activations": 8},
+            {"weights": 6,"activations": 8},
+            {"weights": 5,"activations": 8},
+            {"weights": 4,"activations": 8}
+        ],
+        "logits_save": true
+    }
+}
