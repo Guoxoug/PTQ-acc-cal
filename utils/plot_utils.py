@@ -88,6 +88,7 @@ def plot_ptq_err_swap_hist(
         [], [],linestyle="-", color="navy", alpha=.5, linewidth=2,
         label=f"distribution of swapped predictions"
     )
+    axes[2].legend(loc="lower right")
 
     proportion_swapped = np.array([
         len(conf_dict[k])/data_size for k in conf_dict.keys()

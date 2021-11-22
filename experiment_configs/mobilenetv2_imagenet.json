@@ -5,62 +5,20 @@
             "q":true, 
             "num_classes":1000
         },
-    "pretrained_path": "/home/guoxia01/uncertainty-compression/src/models/saved_models/mobilenet_v2-b0353104.pth",
-    "keep_last_layer": false,
     "weights_path": "/home/guoxia01/uncertainty-compression/src/models/saved_models/mobilenetv2_imagenet"
     },
     "id_dataset": {
         "name": "imagenet",
-        "datapath": "/work/ImageNet/imagenet/manual",
-        "download":false,
-        "batch_size":256,
-        "test_batch_size":256,
-        "num_workers":8,
-        "drop_last":false,
-        "val_size":0,
-        "num_classes":1000
+        "datapath": "/idslF/data/imagenet",
+        "download": false,
+        "batch_size": 256,
+        "test_batch_size": 256,
+        "num_workers": 4,
+        "drop_last": false,
+        "val_size": 0,
+        "num_classes": 1000
     },
-    "shifted_datasets": [
-        {
-            "name": "imagenet-r",
-            "datapath": "/work/guoxia01/ImageNet-unc-test/imagenet-r",
-            "download": false,
-            "test_batch_size": 256,
-            "num_workers": 8,
-            "drop_last": false,
-            "distortions": [],
-            "severities": []
-        },
-        {
-            "name": "imagenet-c",
-            "datapath": "/work/guoxia01/ImageNet-unc-test/imagenet-c",
-            "download": false,
-            "test_batch_size": 256,
-            "num_workers": 8,
-            "drop_last": false,
-            "distortions": ["brightness", "contrast", "jpeg_compression"],
-            "severities": [5]
-        }
-    ],
-    "ood_datasets":[
-        {    
-            "name":"imagenet-r",
-            "datapath":"/work/guoxia01/ImageNet-unc-test/imagenet-r",
-            "download": false,
-            "test_batch_size": 256,
-            "num_workers": 8,
-            "drop_last": false
-        },
-        {
-            "name": "danbooru",
-            "datapath": "/work/guoxia01/danbooru2020/512px",
-            "download": false,
-            "test_batch_size": 256,
-            "num_workers": 8,
-            "drop_last": false
-        }
-    ],
-
+    
     "train_params": {
         "num_epochs": 10,
         "optimizer": "adam",
@@ -73,17 +31,13 @@
                 5
             ],
             "gamma": 0.1
-        },
-        "unfrozen_layers":["classifier", "features.18", "features.17"]
+        }
     },
-    "wandb_name": "testing_quantization_unc",
-    "seed": null,
+     "seed": 0,
     "data_parallel":false,
-    "gpu_id":[3],
+    "gpu_id":[0],
     "test_params":{
-        "logit_distribution":true,
-        "ood_data":true,
-        "results_savedir": "/work/guoxia01/experiment_results",
+        "results_savedir": "/idslE/gx221/PTQ_acc_cal_results",
         "results_save":true,
         "ptq_observer": "histogram",
         "ptq_configs": [

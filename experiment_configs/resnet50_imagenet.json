@@ -15,7 +15,7 @@
         "download":false,
         "batch_size":256,
         "test_batch_size":256,
-        "num_workers":8,
+        "num_workers":4,
         "drop_last":false,
         "val_size":0,
         "num_classes":1000
@@ -39,7 +39,7 @@
     "data_parallel":false,
     "gpu_id":[0],
     "test_params":{
-        "results_savedir": "/work/guoxia01/experiment_results",
+        "results_savedir": "/idslE/gx221/PTQ_acc_cal_results",
         "results_save":true,
         "ptq_observer": "histogram",
         "ptq_configs": [

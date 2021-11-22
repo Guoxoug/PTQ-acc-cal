@@ -101,10 +101,11 @@ else:
     config["gpu_id"] = 0
 
 # will have brackets if read from json
-if dev.type == "cuda":
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(
-        config["gpu_id"]
-    ).replace("[", "").replace("]", "")
+
+os.environ["CUDA_VISIBLE_DEVICES"] = str(
+    config["gpu_id"]
+).replace("[", "").replace("]", "")
+print(f"gpus: ", config["gpu_id"])
 
 # data-------------------------------------------------------------------------
 

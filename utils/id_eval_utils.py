@@ -4,6 +4,8 @@ import numpy as np
 import torch.nn.functional as F
 
 
+# adapted from 
+# https://github.com/gpleiss/temperature_scaling/blob/master/temperature_scaling.py
 class ECELoss(nn.Module):
     """
     Calculates the Expected Calibration Error of a model.
@@ -48,6 +50,7 @@ class ECELoss(nn.Module):
 
         return 100* ece.item() if self.percent else ece.item()
 
+
 class TopKError(nn.Module):
     """
     Calculate the top-k error rate of a model. 
@@ -73,7 +76,6 @@ class TopKError(nn.Module):
         return err.item()
         
 # logit swapping --------------------------------------------------------------
-
 
 def get_swaps_confidence(
     orig_logits: np.ndarray, quant_logits: np.ndarray

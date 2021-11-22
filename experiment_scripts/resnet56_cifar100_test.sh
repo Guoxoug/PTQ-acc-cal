@@ -5,6 +5,7 @@ cd ..
 # path the configuration file
 config_path=experiment_configs/resnet56_cifar100.json
 
-python test.py $config_path --gpu 1
+# python test.py $config_path --gpu 1
 
 python plot_results.py $config_path --num_runs 1
+

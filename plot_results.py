@@ -201,16 +201,16 @@ for j, precision_logit_dict in enumerate(logits):
         for name in precision_err_dict
     }   
 
-    # uncomment below for MobileNetV2 readability
 
-    # delta_error_dict.pop("a8, w5")
-    # delta_error_dict.pop("a8, w4")
-
-    # swap_conf_dict.pop("a8, w5")
-    # swap_conf_dict.pop("a8, w4")
 
     
     for data in labelled_datasets:
+
+        # uncomment below for MobileNetV2 readability
+        # delta_error_dict[data.name].pop("a8, w5")
+        # delta_error_dict[data.name].pop("a8, w4")
+        # swap_conf_dict[data.name].pop("a8, w5")
+        # swap_conf_dict[data.name].pop("a8, w4")
         
         plot_ptq_err_swap_hist(
             delta_error_dict[data.name],
