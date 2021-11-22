@@ -24,9 +24,9 @@ The repository uses vanilla [PyTorch](https://github.com/pytorch/pytorch/tree/ma
 We provide scripts to replicate the experiments found in the paper, for:
 
 * CIFAR-100: ResNet20, ResNet56
-* ImageNet: [ResNet50]("resnet50-19c8e357.pth"), [MobileNetV2](https://download.pytorch.org/models/mobilenet_v2-b0353104.pth)
+* ImageNet: [ResNet50](https://download.pytorch.org/models/resnet50-19c8e357.pth), [MobileNetV2](https://download.pytorch.org/models/mobilenet_v2-b0353104.pth)
 
-We provide weights for trained CIFAR-100 models, as well as scripts for training from scratch. Weights for ImageNet models should be downloaded from PyTorch and placed in the corresponding directories in `models/saved_models`.
+We provide weights for trained CIFAR-100 models, as well as scripts for training from scratch. Weights for ImageNet models should be downloaded from PyTorch (using the above links) and placed in the corresponding directories in `models/saved_models`.
 
 Before running the scripts, you need to edit the `.json` files in `experiment_configs`. 
 * `"datapath"` within `"id_dataset"` needs to be changed to point to the corresponding dataset in your system (in the same way you would pass the directory to the [torchvision dataset](https://pytorch.org/vision/stable/datasets.html)).
