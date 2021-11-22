@@ -38,7 +38,7 @@ parser.add_argument(
     "--seeds",
     default=None,
     type=str,
-    help="string containing random seeds, overrides default 1 to num_runs."
+    help="string containing random seeds, overrides default [1 to num_runs]."
 )
 
 parser.add_argument(
@@ -140,10 +140,6 @@ for data in labelled_datasets:
         print(f"saved plot to: {path}")
 
   
-
-
-
-
 
 # plotting swapping behaviour--------------------------------------------------
 

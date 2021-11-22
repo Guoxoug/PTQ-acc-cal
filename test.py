@@ -1,10 +1,8 @@
-from typing import IO
 import torch
 import torch.nn as nn
 import os
 import json 
 import pandas as pd
-
 
 from models.model_generator import model_generator, load_weights_from_file
 from utils.id_eval_utils import (
@@ -23,7 +21,6 @@ import copy
 from torch.quantization import (
     disable_fake_quant, disable_observer, enable_fake_quant
 )
-
 
 from argparse import ArgumentParser
 
@@ -197,8 +194,6 @@ else:
 print(f"Trying to load weights from: {weights_path}\n")
 load_weights_from_file(float_model, weights_path, dev=dev)
 print("Loading successful")
-
-
 
 # list of results dictionaries
 result_rows = []

@@ -2,8 +2,6 @@ import os
 import torch
 import json
 import time
-from torch.optim import lr_scheduler
-from tqdm import tqdm
 from utils.data_utils import (
     Data, get_preprocessing_transforms, TRAIN_DATASETS
 )
@@ -14,7 +12,6 @@ from utils.train_utils import (
     AverageMeter, 
     ProgressMeter,
     get_filename,
-    save_checkpoint,
     save_state_dict
 )
 from models.model_generator import model_generator

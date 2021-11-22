@@ -2,7 +2,6 @@ import torch
 import shutil
 import os
 
-from utils.data_utils import get_preprocessing_transforms
 
 OPTIMIZER_MAPPING = {
     "sgd": torch.optim.SGD,
@@ -14,7 +13,8 @@ SCHEDULER_MAPPING ={
     "multistep": torch.optim.lr_scheduler.MultiStepLR
 }
 
-# meters from https://github.com/pytorch/examples/blob/master/imagenet/main.py
+# meters from 
+# https://github.com/pytorch/examples/blob/master/imagenet/main.py
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""

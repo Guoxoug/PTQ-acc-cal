@@ -1,8 +1,7 @@
 import torch
 import torch.nn as nn
-from typing import Any, List, Tuple, Optional, Dict, Union
+from typing import  Tuple
 import warnings
-# from densenet import DenseNet
 from torch.quantization import (
     FakeQuantize, 
     MovingAverageMinMaxObserver, 
@@ -41,6 +40,8 @@ def print_model(model: nn.Module):
     """Print modules in model."""
     for i, (n, m) in enumerate(model.named_modules()):
         print(f"{n}: {type(m)}")
+
+        # break early since I don't need to check whole thing
         if i == 30:
             break
 
@@ -114,7 +115,8 @@ class EditedFakeQuantize(FakeQuantize):
 
     # note that the forward() method that is inherited automatically
     # clamps the output, however the actually quantized backend (not 
-    # simulated does not clamp and is only passed zeropoint and scale)
+    # simulated, QNNpack or FBGEMM) does not clamp 
+    # and is only passed zeropoint and scale
 
 # -----------------------------------------------------------------------------
 # copied and edited from 
@@ -158,7 +160,7 @@ class EditedHistogramObserver(_ObserverBase):
         dtype: torch.dtype = torch.quint8,
         qscheme=torch.per_tensor_affine,
         quant_min=0, # additional kwargs that specify bitwidth
-        quant_max=255, # actuall need these defaults because 
+        quant_max=255, # actually need these defaults because 
         # EditedFakeQuantize ends up not passing these arguments when it calls
         # super()
         reduce_range=False,
@@ -991,6 +993,8 @@ def get_qconfig(
 
     if weights == "fp":
         weight_quantizer = torch.nn.Identity
+
+    # only one option for weight observer
     else:
         weight_quantizer = EditedFakeQuantize.with_args(
             observer=PerChannelMinMaxObserver,
@@ -999,7 +1003,6 @@ def get_qconfig(
             reduce_range=False,
             dtype=torch.qint8,
             qscheme=torch.per_channel_symmetric,
-            #ch_axis=1
         )
 
     
@@ -1010,12 +1013,6 @@ def get_qconfig(
 
     return qconfig
 
-# if __name__ == "__main__":
-#     model = DenseNet()
-#     model.qconfig = torch.quantization.get_default_qconfig()
-#     torch.quantization.prepare(model, inplace=True)
-#     print_model(model)
-#     torch.quantization.convert(model, inplace=True)
-    
+
 
 
