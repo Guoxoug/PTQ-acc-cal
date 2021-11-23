@@ -1,4 +1,4 @@
-models/saved_models/mobilnetv2_imagenet/mobilenet_v2-b0353104.pth
+models/saved_models/mobilenetv2_imagenet/mobilenet_v2-b0353104.pth
 models/saved_models/resnet50_imagenet/resnet50-19c8e357.pth
 *.pyc*
 *pycache*
