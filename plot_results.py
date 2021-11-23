@@ -14,8 +14,7 @@ from argparse import ArgumentParser
 
 from utils.data_utils import (
     Data,
-    get_preprocessing_transforms,
-    DISTORTIONS
+    get_preprocessing_transforms
 )
 
 

@@ -71,10 +71,6 @@ else:
 print("using random seed: ", config["seed"])
 
 
-# set training device, defaults to cuda
-dev = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"using {dev} for training")
-
 # set gpu
 if args.gpu is not None:
     config["gpu_id"] = args.gpu
@@ -83,11 +79,14 @@ elif "gpu_id" in config and type(config["seed"]) == int:
 else:
     config["gpu_id"] = 0
 
-# will have brackets if read from json
-if dev.type == "cuda":
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(
-        config["gpu_id"]
-    ).replace("[", "").replace("]", "")
+# set training device, defaults to cuda
+dev = torch.device(
+    "cuda:" + str(config["gpu_id"])
+    if torch.cuda.is_available() 
+    else "cpu"
+)
+print(f"using {dev} for training")
+print(f"gpu: ", dev)
 
 
 

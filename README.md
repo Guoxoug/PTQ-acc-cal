@@ -18,7 +18,7 @@ We can understand post-training quantization as injecting noise into the weights
 Note that **accuracy stays constant for both cases above**.
 
 ## Implementation Details
-The repository uses vanilla [PyTorch](https://github.com/pytorch/pytorch/tree/master/torch), with the exception of quantization. Although we only consider post-training quantization, we *simulate* this using the quantization-aware training functiionality that already exists in [PyTorch's built-in quantization functionality](https://pytorch.org/docs/stable/quantization.html). Code can be found in `utils/quant_utils.py` and `test.py`.
+The repository uses vanilla [PyTorch](https://github.com/pytorch/pytorch/tree/master/torch), with the exception of quantization. Although we only consider post-training quantization, we *simulate* this using the quantization-aware training functionality that already exists in [PyTorch's built-in quantization functionality](https://pytorch.org/docs/stable/quantization.html). Code can be found in `utils/quant_utils.py` and `test.py`.
 
 ## Experiments
 We provide scripts to replicate the experiments found in the paper, for:
@@ -33,3 +33,42 @@ Before running the scripts, you need to edit the `.json` files in `experiment_co
 * `"results_savedir"` within `"test_params"` should point to a directory where you want results to be saved. Note that logits for the ImageNet validation set will be saved, which are approximately 1.2GB per evaluation.
 
 To run the scripts, navigate to `experiment_scripts`, make them executable using `chmod +x *` and run with `./<script>.sh`
+
+* `<model>_<dataset>_train.sh` will train and save a set of weights in `models/saved_models`.
+* `<model>_<dataset>_test.sh` will evaluated a trained model at different levels of quantization, and then save the logits for all predictions. The logits are then loaded and used to generate plots.
+
+Training and test parameters can be found in the corresponding `.json` files in `experiment_configs`. GPU IDs supplied as command line arguments will override those supplied in `.json` files.
+
+## Requirements
+
+In order to run this project first clone the repository:
+```bash
+git clone https://github.com/Guoxoug/PTQ-acc-cal.git
+```
+The main requirements are:
+```
+python>=3.6
+pytorch>=1.7
+numpy
+matplotlib
+seaborn
+scikit-learn
+tqdm
+```
+You can create a working conda environment by using the command: 
+```bash
+conda env create --file env.yml
+```
+
+## Citation
+If you find this code useful in your project please cite our paper:
+```bibtex
+@miscconda{xia2021underexplored,
+      title={An Underexplored Dilemma between Confidence and Calibration in Quantized Neural Networks}, 
+      author={Guoxuan Xia and Sangwon Ha and Tiago Azevedo and Partha Maji},
+      year={2021},
+      eprint={2111.08163},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```

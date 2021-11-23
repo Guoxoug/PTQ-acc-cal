@@ -85,10 +85,6 @@ else:
 # determinism in testing
 torch.backends.cudnn.benchmark = False
 
-# set training device, defaults to cuda
-dev = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"using {dev} for testing")
-
 # set gpu
 if args.gpu is not None:
     config["gpu_id"] = args.gpu
@@ -97,12 +93,14 @@ elif "gpu_id" in config and type(config["seed"]) == int:
 else:
     config["gpu_id"] = 0
 
-# will have brackets if read from json
-
-os.environ["CUDA_VISIBLE_DEVICES"] = str(
-    config["gpu_id"]
-).replace("[", "").replace("]", "")
-print(f"gpus: ", config["gpu_id"])
+# set training device, defaults to cuda
+dev = torch.device(
+    "cuda:" + str(config["gpu_id"])
+    if torch.cuda.is_available() 
+    else "cpu"
+)
+print(f"using {dev} for testing")
+print(f"gpu: ", dev)
 
 # data-------------------------------------------------------------------------
 
@@ -199,7 +197,7 @@ print("Loading successful")
 result_rows = []
 
 # eval floating point model
-fp_results, fp_logits = evaluate(float_model, id_data)
+fp_results, fp_logits = evaluate(float_model, id_data, dev=dev)
 
 fp_results["seed"] = config["seed"]
 fp_results["activations"] = "fp"
@@ -271,7 +269,7 @@ for ptq_config in config["test_params"]["ptq_configs"]:
     print("Calibrating")
     with torch.no_grad():
         for i, (inputs, labels) in enumerate(tqdm(train_loader)):
-            labels, inputs = labels.to("cuda"), inputs.to("cuda")
+            labels, inputs = labels.to(dev), inputs.to(dev)
             outputs = sim_quant_model(inputs)
             if i == 16 * 64//config["id_dataset"]["batch_size"]:
                 break
@@ -280,7 +278,7 @@ for ptq_config in config["test_params"]["ptq_configs"]:
     sim_quant_model.apply(disable_observer)
     sim_quant_model.apply(enable_fake_quant)
 
-    sim_quant_model.to("cuda")
+    sim_quant_model.to(dev)
     sim_results, sim_logits = evaluate(
         sim_quant_model, id_data, dev=dev
     )

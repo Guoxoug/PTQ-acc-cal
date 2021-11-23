@@ -38,7 +38,7 @@
     },
     "wandb_name": "testing_quantization_unc",
     "seed":1,
-    "gpu_id":[0],
+    "gpu_id":0,
     "test_params":{
         "results_savedir": "/idslE/gx221/PTQ_acc_cal_results",
         "results_save":true,

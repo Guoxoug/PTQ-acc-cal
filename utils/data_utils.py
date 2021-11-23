@@ -3,12 +3,7 @@ import torch
 import torchvision as tv
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler, SequentialSampler
-from torchvision.datasets.folder import ImageFolder
-from torchvision.datasets.imagenet import ImageNet
 import os
-import numpy as np
-from io import BytesIO
-from PIL import Image
 
 
 TRAIN_DATASETS = ["cifar10", "cifar100", "imagenet"]
