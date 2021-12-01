@@ -178,7 +178,7 @@ class EditedHistogramObserver(_ObserverBase):
         )
 
         # need this as tensors will clash otherwise
-        self.dev = "cuda"
+        self.dev = "cpu"
 
         factory_kwargs = torch.nn.factory_kwargs(factory_kwargs)
         self.bins = bins
@@ -578,7 +578,7 @@ class PerChannelHistogramObserver(_ObserverBase):
         )
 
         # need this as tensors will clash otherwise
-        self.dev = "cuda"
+        self.dev = "cpu"
 
         factory_kwargs = torch.nn.factory_kwargs(factory_kwargs)
         self.bins = bins

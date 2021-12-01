@@ -99,6 +99,7 @@ dev = torch.device(
     if torch.cuda.is_available() 
     else "cpu"
 )
+
 print(f"using {dev} for testing")
 print(f"gpu: ", dev)
 
@@ -259,6 +260,9 @@ for ptq_config in config["test_params"]["ptq_configs"]:
     torch.quantization.prepare_qat(
         sim_quant_model, inplace=True, mapping=sim_mapping
     )
+
+    # histogram observer has a buffer that needs to be sent to dev
+    sim_quant_model.to(dev)
 
     # simulated quantization layer is there but it only observes
     sim_quant_model.apply(disable_fake_quant)
