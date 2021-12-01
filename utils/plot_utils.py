@@ -138,7 +138,7 @@ def plot_ptq_err_swap_hist(
 
 
 def plot_reliability_curve(
-    logits, labels, legend_labels=[], file_path=None, n_bins=15, title="reliability curve",
+    logits, labels, legend_labels=[], file_path=None, n_bins=15, title=None,
     histogram=True, one_color=True
 ):
     """Plot a reliability curve given logits and labels.
@@ -194,6 +194,8 @@ def plot_reliability_curve(
     else:
         ax.set_ylabel('accuracy')
     ax.set_xlabel('confidence')
+
+    # override acc for custom title
     if title is not None:
         ax.set_title(title)
 
