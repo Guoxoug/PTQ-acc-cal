@@ -30,9 +30,9 @@ We provide weights for trained CIFAR-100 models, as well as scripts for training
 * `models/saved_models/resnet50_imagenet`
 * `models/saved_models/mobilenetv2_imagenet`
 
-Before running the scripts, you need to edit the `.json` files in `experiment_configs`. 
+Before running the scripts, you **need** to edit the `.json` files in `experiment_configs`. 
 * `"datapath"` within `"id_dataset"` needs to be changed to point to the corresponding dataset in your system (in the same way you would pass the directory to the [torchvision dataset](https://pytorch.org/vision/stable/datasets.html)).
-* `"results_savedir"` within `"test_params"` should point to a directory where you want results to be saved. Note that logits for the ImageNet validation set will be saved, which are approximately 1.2GB per evaluation.
+* `"results_savedir"` within `"test_params"` should point to a (existing) directory where you want results to be saved. Note that logits for the ImageNet validation set will be saved, which are approximately 1.2GB per evaluation.
 
 To run the scripts, navigate to `experiment_scripts`, make them executable using `chmod +x *` and run with `./<script>.sh`
 
